@@ -22,6 +22,9 @@ if os.path.exists(path) == True:
 username = os.getlogin()
 os.mkdir(path)
 tar_out = tarfile.open(bckp_file, "w:bz2")
+
+#BELOW ADD WHAT NEEDS TO BE BACKED UP
+
 try:
     tar_out.add('/etc', '/home/' + username + '/.ssh')
     tar_out.add('/home/' + username + '/Desktop')
@@ -29,7 +32,9 @@ try:
 finally:
     tar_out.close()
 
-cmd1 = "mount.cifs -o username=ondrej.valcik,password=*********** //192.168.XXX.XXX/install/temp/ondra/ /mnt/share/"
+#BELOW IS PROCESS OF MOUNTING FS AND DESTINATION  
+    
+cmd1 = "mount.cifs -o username=oval22,password=*********** //192.168.XXX.XXX/install/temp/ondra/ /mnt/share/"
 
 cmd2 = "rsync -az /backup/backup_" + socket.gethostname() + "_.tar.bz2 /mnt/share/"
 
@@ -43,12 +48,12 @@ os.system(cmd2)
 os.system(cmd3)
 
 
-
+#SENDING EMAIL ABOUT BACKUP WAS DONE
 
 mailout.append("Zaloha uzivatele " + username + " stroje " + socket.gethostname() + " BYLA DOKONCENA")
 
-pro = ["valcik@proebiz.com"]
-od = "backup@proebiz.com"
+pro = ["oval22@XYZ.com"]
+od = "backup@XYZ.com"
 
 msg = MIMEText('\n'.join(mailout),"plain", "utf-8")
 msg['Subject'] = "Zaloha " + socket.gethostname()
@@ -57,6 +62,6 @@ msg['To'] = " ,".join(pro)
 
 
 
-s = smtplib.SMTP('mail.proebiz.cz')
+s = smtplib.SMTP('mail.XYZ.com')
 s.sendmail(od, pro, msg.as_string())
 s.quit()
