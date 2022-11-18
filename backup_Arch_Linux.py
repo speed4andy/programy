@@ -11,10 +11,10 @@ import socket
 
 from email.mime.text import MIMEText
 
-dest = os.path.join("/backup/")
+dest = os.path.join("/home/"+ getpass.getuser() +"/backup/")
 bckp_file = dest + "backup_" + socket.gethostname() + '_' + ".tar.bz2"
 mailout = []
-path = "/backup"
+path = "/home/"+ getpass.getuser() +"/backup"
 
 if os.path.exists(path) == True:
     shutil.rmtree(path)
@@ -26,9 +26,8 @@ tar_out = tarfile.open(bckp_file, "w:bz2")
 #BELOW ADD WHAT NEEDS TO BE BACKED UP
 
 try:
-    tar_out.add('/etc', '/home/' + username + '/.ssh')
-    tar_out.add('/home/' + username + '/Desktop')
-    tar_out.add('/home/' + username + '/.thunderbird/')
+   #tar_out.add("/home/"+ getpass.getuser() +"")
+    tar_out.add("/home/"+ getpass.getuser() +"/.ssh")
 finally:
     tar_out.close()
 
