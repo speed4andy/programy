@@ -1,3 +1,5 @@
+#This easy program was written to help me backup my LINUX machine with move tared file to another destination feel free to modify this code if you notice some issues/bugs
+
 #!/usr/bin/env python
 import os 
 import datetime
